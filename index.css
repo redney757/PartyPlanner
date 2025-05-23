@@ -1,0 +1,15 @@
+h2 {
+    margin-top: 50px;
+}
+h3 {
+    border-style: solid;
+    border-radius: 10px;
+    padding-left: 10px;
+    width: 50vw;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    padding: 10px;
+}
+p {
+    margin-left: 15px;
+}
