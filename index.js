@@ -30,70 +30,87 @@ async function getParties() {
 }
 
 function displayParty(event) {
-    const partyDiv = document.createElement("div");
-    partyDiv.className = "partyDiv";
-    partyDiv.innerHTML = `
-    <h3 style="cursor:pointer">${event.name}</h3>
-    `;
+    try {
+        const partyDiv = document.createElement("div");
+        partyDiv.className = "partyDiv";
+        partyDiv.innerHTML = `
+        <h3 style="cursor:pointer">${event.name}</h3>
+        `;
 
-    const detailTitle = document.createElement("h4");
-    detailTitle.textContent = "Party Details:";
-    detailTitle.style.display = "none";
+        const detailTitle = document.createElement("h4");
+        detailTitle.textContent = "Party Details:";
+        detailTitle.style.display = "none";
 
-    const id = document.createElement("p");
-    id.textContent = `ID: ${event.id}`;
-    id.style.display = "none";
+        const id = document.createElement("p");
+        id.textContent = `ID: ${event.id}`;
+        id.style.display = "none";
 
-    const date = document.createElement("p");
-    date.textContent = `Date: ${event.date}`;
-    date.style.display = "none";
+        const date = document.createElement("p");
+        date.textContent = `Date: ${event.date}`;
+        date.style.display = "none";
 
-    const location = document.createElement("p");
-    location.textContent = `Location: ${event.location}`;
-    location.style.display = "none";
-    const descript = document.createElement("p");
-    descript.textContent = `Description: ${event.description}`;
-    descript.style.display = "none";
+        const location = document.createElement("p");
+        location.textContent = `Location: ${event.location}`;
+        location.style.display = "none";
+        const descript = document.createElement("p");
+        descript.textContent = `Description: ${event.description}`;
+        descript.style.display = "none";
 
-    
+        const selected = partyDiv.querySelector("h3")
+        selected.addEventListener("click", () => {
+            try {
+                const isHidden = descript.style.display === "none";
+                
+                if (isHidden && !state.expandedPartyDiv) {
+                    selected.style.backgroundColor = "lightblue"
+                    selected.append(detailTitle, id, date, location, descript);
+                    viewPrompt.style.display = "none";
+                    detailTitle.style.display = "block";
+                    descript.style.display = "block";
+                    date.style.display = "block";
+                    id.style.display = "block";
+                    location.style.display = "block";
+                    state.expandedPartyDiv = partyDiv;
+                } else if (!isHidden && state.expandedPartyDiv === partyDiv) {
+                    selected.style.backgroundColor = "transparent"
+                    viewPrompt.style.display = "block";
+                    detailTitle.style.display = "none";
+                    descript.style.display = "none";
+                    date.style.display = "none";
+                    location.style.display = "none";
+                    id.style.display = "none";
+                    state.expandedPartyDiv = null;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        });
 
-    const selected = partyDiv.querySelector("h3")
-    selected.addEventListener("click", () => {
-        const isHidden = descript.style.display === "none";
-        
-        if (isHidden && !state.expandedPartyDiv) {
-            selected.style.backgroundColor = "lightblue"
-            selected.append(detailTitle, id, date, location, descript);
-            viewPrompt.style.display = "none";
-            detailTitle.style.display = "block";
-            descript.style.display = "block";
-            date.style.display = "block";
-            id.style.display = "block";
-            location.style.display = "block";
-            state.expandedPartyDiv = partyDiv;
-        } else if (!isHidden && state.expandedPartyDiv === partyDiv) {
-            selected.style.backgroundColor = "transparent"
-            viewPrompt.style.display = "block";
-            detailTitle.style.display = "none";
-            descript.style.display = "none";
-            date.style.display = "none";
-            location.style.display = "none";
-            id.style.display = "none";
-            state.expandedPartyDiv = null;
-        }
-    });
-
-    return partyDiv;
+        return partyDiv;
+    } catch (e) {
+        console.error(e);
+        return document.createElement("div");
+    }
 }
 
 function renderParties() {
-    const partyHolders = state.parties.map(displayParty);
-    appDiv.replaceChildren(...partyHolders);
+    try {
+        const partyHolders = state.parties.map(displayParty);
+        appDiv.replaceChildren(...partyHolders);
+    } catch (e) {
+        console.error(e);
+        viewPrompt.textContent = "Failed to render parties.";
+    }
 }
 
 async function init() {
-    await getParties();
-    renderParties();
+    try {
+        await getParties();
+        renderParties();
+    } catch (e) {
+        console.error(e);
+        viewPrompt.textContent = "Initialization failed.";
+    }
 }
 
 init();
