@@ -80,7 +80,6 @@ function displayParty(event) {
             location.style.display = "none";
             id.style.display = "none";
             state.expandedPartyDiv = null;
-            state.expandedPartyDiv = null;
         }
     });
 
