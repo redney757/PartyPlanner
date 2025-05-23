@@ -49,7 +49,7 @@ function displayParty(event) {
     date.style.display = "none";
 
     const location = document.createElement("p");
-    location.textContent = `Description: ${event.location}`;
+    location.textContent = `Location: ${event.location}`;
     location.style.display = "none";
     const descript = document.createElement("p");
     descript.textContent = `Description: ${event.description}`;
