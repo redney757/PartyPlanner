@@ -48,6 +48,9 @@ function displayParty(event) {
     date.textContent = `Date: ${event.date}`;
     date.style.display = "none";
 
+    const location = document.createElement("p");
+    location.textContent = `Description: ${event.location}`;
+    location.style.display = "none";
     const descript = document.createElement("p");
     descript.textContent = `Description: ${event.description}`;
     descript.style.display = "none";
@@ -60,12 +63,13 @@ function displayParty(event) {
         
         if (isHidden && !state.expandedPartyDiv) {
             selected.style.backgroundColor = "lightblue"
-            selected.append(detailTitle, id, date, descript);
+            selected.append(detailTitle, id, date, location, descript);
             viewPrompt.style.display = "none";
             detailTitle.style.display = "block";
             descript.style.display = "block";
             date.style.display = "block";
             id.style.display = "block";
+            location.style.display = "block";
             state.expandedPartyDiv = partyDiv;
         } else if (!isHidden && state.expandedPartyDiv === partyDiv) {
             selected.style.backgroundColor = "transparent"
@@ -73,6 +77,7 @@ function displayParty(event) {
             detailTitle.style.display = "none";
             descript.style.display = "none";
             date.style.display = "none";
+            location.style.display = "none";
             id.style.display = "none";
             state.expandedPartyDiv = null;
             state.expandedPartyDiv = null;
